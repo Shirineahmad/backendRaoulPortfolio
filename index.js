@@ -18,7 +18,7 @@ async function main() {
   }
 }
 
-main();
+// main();
 const contactInfoAndDescSchema = new Schema({
   contactDesc: { type: String, required: true },
   phoneNb: { type: Number, required: true, unique: true },
@@ -31,7 +31,9 @@ const contactInfoAndDesc = model(
   "ContactInfoAndDesc",
   contactInfoAndDescSchema
 );
-app.get("/",  (req, res) => { res.send("hello") })
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 app.get("/api/get", async (req, res) => {
   try {
     const contactAndDesc = await contactInfoAndDesc.find({});
