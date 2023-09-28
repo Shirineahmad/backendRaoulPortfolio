@@ -28,7 +28,7 @@ app.use('/About', AboutRoute);
 app.use('/ContactMe', ContactMeRoute);
 app.use('/Testimonials', TestimonialsRoute);
 app.use('/MyProjects', MyProjectsRoute);
-app.use('/ContactInfoAndDescRoute', ContactInfoAndDescRoute);
+app.use('/ContactInfoAndDesc', ContactInfoAndDescRoute);
 app.use('/LogIn', LogInRoute);
 
 

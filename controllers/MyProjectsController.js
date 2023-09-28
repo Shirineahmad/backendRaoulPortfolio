@@ -65,7 +65,7 @@ const getAllProjects = async (req, res) => {
         TechUsed ,
         DemoLink , 
         RepoLink , 
-        projectImage: imageBase64, 
+        ProjectImage: imageBase64, 
         ImageContentType: imageContentType,
       });
   
