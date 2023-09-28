@@ -6,7 +6,7 @@ const getAllProjects = async (req, res) => {
       res.status(200).json({
         success: true,
         message: 'Data retrieved successfully',
-        data: [project],
+        data: project,
       });
     } catch (error) {
       res.status(400).json({
@@ -20,13 +20,20 @@ const getAllProjects = async (req, res) => {
   const getProjectByID = async (req, res) => {
     try {
       const project = await MyProject.findById(req.params.ID);
+
+      if (!project){
+        return res.status(404).json({
+          success: false,
+          message: 'data not found',
+        });
+      }
       res.status(200).json({
         success: true,
         message: 'data retrieved successfully',
         data: project,
       });
     } catch (error) {
-      res.status(200).json({
+      res.status(500).json({
         success: false,
         message: 'unable to get data by ID',
         error: error,
@@ -37,20 +44,47 @@ const getAllProjects = async (req, res) => {
 
   const addProject = async (req, res) => {
     try {
-      const project = await MyProject.create(req.body);
+      const  {ProjectName , ProjectDesc , TechUsed , DemoLink ,  RepoLink} = req.body;
+  
+     
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: 'Image file is required',
+        });
+      }
+  
+   
+      const imageBuffer = req.file.buffer;
+      const imageBase64 = imageBuffer.toString('base64');
+      const imageContentType = req.file.mimetype;
+  
+      const project = new MyProject({
+        ProjectName , 
+        ProjectDesc , 
+        TechUsed ,
+        DemoLink , 
+        RepoLink , 
+        projectImage: imageBase64, 
+        ImageContentType: imageContentType,
+      });
+  
+      await project.save();
+  
       res.status(200).json({
         success: true,
         message: 'Data added successfully',
         data: project,
       });
     } catch (error) {
-      res.status(400).json({
+      console.error(error);
+      res.status(500).json({
         success: false,
-        message: 'unable to add data',
-        error: error,
+        message: 'Unable to add data',
+        error: error.message,
       });
     }
-    };
+  };
 
   const deleteProjectByID =  async (req, res) => {
     try {

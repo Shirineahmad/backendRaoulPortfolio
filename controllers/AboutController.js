@@ -1,12 +1,12 @@
-const HeroAndAbout = require('../models/HeroAndAbout');
+const About = require('../models/About');
 
-const getAllHeroAndAbout = async (req, res) => {
+const getAllAbout = async (req, res) => {
     try {
-      const heroAbout = await HeroAndAbout.find({});
+      const about = await About.find({});
       res.status(200).json({
         success: true,
         message: 'Data retrieved successfully',
-        data: [heroAbout],
+        data: about,
       });
     } catch (error) {
       res.status(400).json({
@@ -15,15 +15,15 @@ const getAllHeroAndAbout = async (req, res) => {
         error: error,
       });
     }
-    }
+    };
 
-  const getHeroAndAboutByID = async (req, res) => {
+  const getAboutByID = async (req, res) => {
     try {
-      const heroAbout = await HeroAndAbout.findById(req.params.ID);
+      const about = await About.findById(req.params.ID);
       res.status(200).json({
         success: true,
-        message: 'Data retrieved successfully',
-        data: heroAbout,
+        message: 'data retrieved successfully',
+        data: about,
       });
     } catch (error) {
       res.status(200).json({
@@ -35,13 +35,13 @@ const getAllHeroAndAbout = async (req, res) => {
   };
 
 
-  const addHeroAndAbout = async (req, res) => {
+  const addAbout = async (req, res) => {
     try {
-      const heroAbout = await HeroAndAbout.create(req.body);
+      const about = await About.create(req.body);
       res.status(200).json({
         success: true,
         message: 'Data added successfully',
-        data: heroAbout,
+        data: about,
       });
     } catch (error) {
       res.status(400).json({
@@ -52,13 +52,13 @@ const getAllHeroAndAbout = async (req, res) => {
     }
     };
 
-  const deleteHeroAndAboutByID = async (req, res) => {
+  const deleteAboutByID =  async (req, res) => {
     try {
-      const heroAbout = await HeroAndAbout.deleteOne({ _id: req.params.ID });
+      const about = await About.deleteOne({ _id: req.params.ID });
       res.status(200).json({
         success: true,
         message: 'Data deleted successfully',
-        data: heroAbout,
+        data: about,
       });
     } catch (error) {
       res.status(400).json({
@@ -69,13 +69,13 @@ const getAllHeroAndAbout = async (req, res) => {
     }
     };
 
-  const updateHeroAndAboutByID = async (req, res) => {
+  const updateAboutByID = async (req, res) => {
     try {
-      const heroAbout = await HeroAndAbout.findByIdAndUpdate(req.params.ID, req.body);
+      const about = await About.findByIdAndUpdate(req.params.ID, req.body);
       res.status(200).json({
         success: true,
         message: 'data updated successfully.',
-        data: heroAbout,
+        data: about,
       });
     } catch (error) {
       res.status(400).json({
@@ -87,9 +87,9 @@ const getAllHeroAndAbout = async (req, res) => {
   };
 
   module.exports = {
-    getAllHeroAndAbout,
-    getHeroAndAboutByID,
-    addHeroAndAbout,
-    updateHeroAndAboutByID,
-    deleteHeroAndAboutByID,
+    getAllAbout,
+    getAboutByID ,
+    addAbout,
+    updateAboutByID,
+    deleteAboutByID,
   };

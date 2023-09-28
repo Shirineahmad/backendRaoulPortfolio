@@ -3,7 +3,8 @@ const cors = require('cors');
 const express = require('express');
 const dbConnection = require('./config/db');
 const SkillsRoute = require('./routes/SkillsRoute');
-const HeroAndAboutRoute = require('./routes/HeroAndAboutRoute');
+const HeroRoute = require('./routes/HeroRoute');
+const AboutRoute = require('./routes/AboutRoute');
 const ContactMeRoute = require('./routes/ContactMeRoute');
 const TestimonialsRoute = require('./routes/TestimonialsRoute');
 const MyProjectsRoute = require('./routes/MyProjectsRoute');
@@ -20,8 +21,10 @@ app.use(express.urlencoded());
 app.use(cors());
 
 
+
 app.use('/Skills', SkillsRoute);
-app.use('/HeroAndAbout', HeroAndAboutRoute);
+app.use('/Hero', HeroRoute);
+app.use('/About', AboutRoute);
 app.use('/ContactMe', ContactMeRoute);
 app.use('/Testimonials', TestimonialsRoute);
 app.use('/MyProjects', MyProjectsRoute);

@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer();
 
 const {
     getAllTestimonials,
@@ -11,7 +13,7 @@ const {
 
 router.get('/getAll', getAllTestimonials);
 router.get('/getByID/:ID', getTestimonialByID);
-router.post('/add', addTestimonial);
+router.post('/add', upload.single('image'), addTestimonial);
 router.put('/update/:ID', updateTestimonialByID);
 router.delete('/delete/:ID', deleteTestimonialByID);
 

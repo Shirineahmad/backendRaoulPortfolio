@@ -6,7 +6,7 @@ const getAllLogIn = async (req, res) => {
       res.status(200).json({
         success: true,
         message: 'Data retrieved successfully',
-        data: [Login],
+        data: Login,
       });
     } catch (error) {
       res.status(400).json({

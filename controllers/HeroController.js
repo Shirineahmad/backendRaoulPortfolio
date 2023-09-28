@@ -1,12 +1,12 @@
-const Testimonial = require('../models/Testimonials');
+const Hero = require('../models/Hero');
 
-const getAllTestimonials = async (req, res) => {
+const getAllHero = async (req, res) => {
     try {
-      const testimonial = await Testimonial.find({});
+      const hero = await Hero.find({});
       res.status(200).json({
         success: true,
         message: 'Data retrieved successfully',
-        data: testimonial,
+        data: hero,
       });
     } catch (error) {
       res.status(400).json({
@@ -15,22 +15,22 @@ const getAllTestimonials = async (req, res) => {
         error: error,
       });
     }
-    };
+    }
 
-  const getTestimonialByID = async (req, res) => {
+  const getHeroByID = async (req, res) => {
     try {
-      const testimonial = await Testimonial.findById(req.params.ID);
+      const hero = await Hero.findById(req.params.ID);
 
-      if(!testimonial){
+      if(!hero){
         return res.status(404).json({
           success: false,
-          message: 'Skill not found',
+          message: 'data not found',
         });
       }
       res.status(200).json({
         success: true,
-        message: 'data retrieved successfully',
-        data: testimonial,
+        message: 'Data retrieved successfully',
+        data: hero,
       });
     } catch (error) {
       res.status(500).json({
@@ -42,9 +42,9 @@ const getAllTestimonials = async (req, res) => {
   };
 
 
-  const addTestimonial = async (req, res) => {
+  const addHero = async (req, res) => {
     try {
-      const  { Name , Email , Review } = req.body;
+      const  {SmallDesc} = req.body;
   
      
       if (!req.file) {
@@ -59,20 +59,18 @@ const getAllTestimonials = async (req, res) => {
       const imageBase64 = imageBuffer.toString('base64');
       const imageContentType = req.file.mimetype;
   
-      const testimonial = new Testimonial({
-        Name , 
-        Email , 
-        Review ,
-        testimonialImage: imageBase64, 
+      const hero = new Hero({
+        SmallDesc,
+        HeroImage: imageBase64, 
         ImageContentType: imageContentType,
       });
   
-      await testimonial.save();
+      await hero.save();
   
       res.status(200).json({
         success: true,
         message: 'Data added successfully',
-        data: testimonial,
+        data: hero,
       });
     } catch (error) {
       console.error(error);
@@ -84,13 +82,13 @@ const getAllTestimonials = async (req, res) => {
     }
   };
 
-  const deleteTestimonialByID =  async (req, res) => {
+  const deleteHeroByID = async (req, res) => {
     try {
-      const testimonial = await Testimonial.deleteOne({ _id: req.params.ID });
+      const hero = await Hero.deleteOne({ _id: req.params.ID });
       res.status(200).json({
         success: true,
         message: 'Data deleted successfully',
-        data: testimonial,
+        data: hero,
       });
     } catch (error) {
       res.status(400).json({
@@ -101,13 +99,13 @@ const getAllTestimonials = async (req, res) => {
     }
     };
 
-  const updateTestimonialByID = async (req, res) => {
+  const updateHeroByID = async (req, res) => {
     try {
-      const testimonial = await Testimonial.findByIdAndUpdate(req.params.ID, req.body);
+      const hero = await Hero.findByIdAndUpdate(req.params.ID, req.body);
       res.status(200).json({
         success: true,
         message: 'data updated successfully.',
-        data: testimonial,
+        data: hero,
       });
     } catch (error) {
       res.status(400).json({
@@ -119,9 +117,9 @@ const getAllTestimonials = async (req, res) => {
   };
 
   module.exports = {
-    getAllTestimonials,
-    getTestimonialByID,
-    addTestimonial,
-    updateTestimonialByID,
-    deleteTestimonialByID,
+    getAllHero,
+    getHeroByID,
+    addHero,
+    updateHeroByID,
+    deleteHeroByID,
   };

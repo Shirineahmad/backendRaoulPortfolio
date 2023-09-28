@@ -2,11 +2,11 @@ const Skills = require('../models/Skills');
 
 const getAllSkills = async (req, res) => {
     try {
-      const skills = await Skills.find({});
+      const skill = await Skills.find({});
       res.status(200).json({
         success: true,
         message: 'Data retrieved successfully',
-        data: [skills],
+        data: skill,
       });
     } catch (error) {
       res.status(400).json({
@@ -19,46 +19,79 @@ const getAllSkills = async (req, res) => {
 
   const getSkillByID = async (req, res) => {
     try {
-      const skills = await Skills.findById(req.params.ID);
+      const skill = await Skills.findById(req.params.ID);
+
+      if (!skill) {
+        return res.status(404).json({
+          success: false,
+          message: 'Skill not found',
+        });
+      }
+
       res.status(200).json({
         success: true,
-        message: 'skill retrieved successfully',
-        data: blog,
+        message: 'Skill retrieved successfully',
+        data: skill,
       });
     } catch (error) {
-      res.status(200).json({
+      res.status(500).json({
         success: false,
-        message: 'unable to get skill by ID',
+        message: 'Unable to get skill by ID',
         error: error,
       });
     }
-  };
+};
 
 
-  const addSkill = async (req, res) => {
-    try {
-      const skills = await Skills.create(req.body);
-      res.status(200).json({
-        success: true,
-        message: 'Data added successfully',
-        data: skills,
-      });
-    } catch (error) {
-      res.status(400).json({
+const addSkill = async (req, res) => {
+  try {
+    const  { SmallDesc , SkillType , SkillDesc } = req.body;
+
+   
+    if (!req.file) {
+      return res.status(400).json({
         success: false,
-        message: 'unable to add data',
-        error: error,
+        message: 'Image file is required',
       });
     }
-  };
+
+ 
+    const imageBuffer = req.file.buffer;
+    const imageBase64 = imageBuffer.toString('base64');
+    const imageContentType = req.file.mimetype;
+
+    const skill = new skills({
+      SmallDesc,
+      SkillType , 
+      SkillDesc,
+      skillsImage: imageBase64, 
+      ImageContentType: imageContentType,
+    });
+
+    await skill.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Data added successfully',
+      data: skill,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Unable to add data',
+      error: error.message,
+    });
+  }
+};
 
   const deleteSkillByID = async (req, res) => {
     try {
-      const skills = await Skills.deleteOne({ _id: req.params.ID });
+      const skill = await Skills.deleteOne({ _id: req.params.ID });
       res.status(200).json({
         success: true,
         message: 'Data deleted successfully',
-        data: skills,
+        data: skill,
       });
     } catch (error) {
       res.status(400).json({
@@ -71,11 +104,11 @@ const getAllSkills = async (req, res) => {
 
   const updateSkillByID = async (req, res) => {
     try {
-      const skills = await Skills.findByIdAndUpdate(req.params.ID, req.body);
+      const skill = await Skills.findByIdAndUpdate(req.params.ID, req.body);
       res.status(200).json({
         success: true,
         message: 'skill updated successfully.',
-        data: skills,
+        data: skill,
       });
     } catch (error) {
       res.status(400).json({
