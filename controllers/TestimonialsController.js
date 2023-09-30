@@ -60,11 +60,12 @@ const getAllTestimonials = async (req, res) => {
       const imageContentType = req.file.mimetype;
   
       const testimonial = new Testimonial({
-        Name , 
-        Email , 
-        Review ,
-        testimonialImage: imageBase64, 
+        Name,
+        Email,
+        Review,
+        UserImage: imageBase64,
         ImageContentType: imageContentType,
+        approve: false, 
       });
   
       await testimonial.save();

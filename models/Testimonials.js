@@ -8,6 +8,7 @@ const TestimonialsSchema = new Schema({
     Review : { type: String, required: true },
     UserImage: { type: String, required: true },
     ImageContentType: { type: String, required: true },
+    approve: { type: Boolean, default: false },
   
   });
   

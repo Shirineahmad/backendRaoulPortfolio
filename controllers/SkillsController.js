@@ -45,7 +45,8 @@ const getAllSkills = async (req, res) => {
 
 const addSkill = async (req, res) => {
   try {
-    const  { SmallDesc , SkillType , SkillDesc } = req.body;
+    const  { SkillType , SkillDesc } = req.body;
+    console.log(req.body);
 
    
     if (!req.file) {
@@ -60,11 +61,10 @@ const addSkill = async (req, res) => {
     const imageBase64 = imageBuffer.toString('base64');
     const imageContentType = req.file.mimetype;
 
-    const skill = new skills({
-      SmallDesc,
+    const skill = new Skills({
       SkillType , 
       SkillDesc,
-      skillsImage: imageBase64, 
+      SkillImage: imageBase64, 
       ImageContentType: imageContentType,
     });
 
