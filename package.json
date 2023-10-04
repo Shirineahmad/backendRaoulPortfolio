@@ -5,15 +5,14 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongodb": "^6.1.0",
-    "mongoose": "^7.5.2",
+    "mongoose": "^6.10.0",
     "nodemon": "^3.0.1"
   },
   "name": "backend_raoul_portfolio",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    "start":"nodemon app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
