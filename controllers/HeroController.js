@@ -100,8 +100,19 @@ const getAllHero = async (req, res) => {
     };
 
   const updateHeroByID = async (req, res) => {
+    const  {SmallDesc} = req.body;
+    
     try {
-      const hero = await Hero.findByIdAndUpdate(req.params.ID, req.body);
+      const imageBuffer = req.file.buffer;
+      const imageBase64 = imageBuffer.toString('base64');
+      const imageContentType = req.file.mimetype;
+  
+      const heroData = {
+        SmallDesc,
+        HeroImage: imageBase64, 
+        ImageContentType: imageContentType,
+      };
+      const hero = await Hero.findByIdAndUpdate(req.params.ID, heroData);
       res.status(200).json({
         success: true,
         message: 'data updated successfully.',
